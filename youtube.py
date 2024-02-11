@@ -7,9 +7,10 @@ from tkinter.filedialog import askdirectory
 def download_video(url, save_path):
     try:
         yt = YouTube(url)
-        streams = yt.streams.filter(progressive=True, file_extension="mp4")
-        highest_res_stream = streams.first()  # Get the highest resolution stream
-        highest_res_stream.download(output_path=save_path)
+        #streams = yt.streams.filter(progressive=True, file_extension="mp4")
+        #highest_res_stream = streams.get_highest_resolution()
+        #highest_res_stream.download(output_path=save_path)
+        yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download()
         print("Video downloaded successfully!")
     except Exception as e:
         print(e)
